@@ -1,6 +1,5 @@
 import Vue from 'vue'
 // import Router from 'vue-router'
-
 // Vue.use(Router)
 
 const apiURL = 'http://localhost:3000'
@@ -39,28 +38,23 @@ const app = new Vue({
     // below is working
     createFriend(friend) {
       console.log('createFriend:', { name: this.inputName, age: this.inputAge })
-      // this.id = this.friends.length + 1
+      // this.id = this.friends.length + 1  ////removed from UI and added to server
       fetch(`${apiURL}/friend`, {
-        body: JSON.stringify({ name: this.inputName, age: this.inputAge }),
+        body: JSON.stringify({ _id: null, name: this.inputName, age: this.inputAge }),
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         }
       })
-        .then(res =>
-          console.log('res', res))
         .then(() => {
           this.inputName = null
           this.inputAge = null
           this.getFriends()
         })
-        .then(() =>
-          console.log('Created!!', friend))
     },
 
     // below is working
     updateFriend(friend) {
-      console.log('updateFriend:', friend)
       fetch(`${apiURL}/friend/${friend._id}`, {
         body: JSON.stringify(friend),
         method: 'PUT',
