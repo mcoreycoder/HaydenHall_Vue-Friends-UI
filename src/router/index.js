@@ -15,10 +15,12 @@ const app = new Vue({
   },
   methods: {
     // below is working
-    getFriends() {
+    getFriends () {
       fetch(`${apiURL}/friends`)
         .then(response => {
+          // console.log(response)
           return response.json()
+          // return response // Uncaught (in promise) SyntaxError: Unexpected end of JSON input
         })
         .then((data) => {
           this.friends = data
@@ -36,7 +38,7 @@ const app = new Vue({
     // },
 
     // below is working
-    createFriend(friend) {
+    createFriend (friend) {
       console.log('createFriend:', { name: this.inputName, age: this.inputAge })
       // this.id = this.friends.length + 1  ////removed from UI and added to server
       fetch(`${apiURL}/friend`, {
@@ -54,7 +56,7 @@ const app = new Vue({
     },
 
     // below is working
-    updateFriend(friend) {
+    updateFriend (friend) {
       fetch(`${apiURL}/friend/${friend._id}`, {
         body: JSON.stringify(friend),
         method: 'PUT',
@@ -68,7 +70,7 @@ const app = new Vue({
     },
 
     // below is working
-    deleteFriend(friend) {
+    deleteFriend (friend) {
       console.log('deleteFriend:', friend)
       fetch(`${apiURL}/friend/${friend._id}`, {
         method: 'DELETE',
@@ -76,8 +78,8 @@ const app = new Vue({
           'Content-Type': 'application/json'
         }
       })
-        .then(res =>
-          console.log(res))
+        // .then(res =>
+        //   console.log(res))
         .then(() => {
           this.getFriends()
         })
@@ -85,7 +87,7 @@ const app = new Vue({
           console.log(err))
     },
 
-    cancel(friend) {
+    cancel (friend) {
       this.id = null
       this.inputName = null
       this.inputAge = null
@@ -93,9 +95,8 @@ const app = new Vue({
     }
   },
 
-  mounted() {
+  mounted () {
     this.getFriends()
-
   },
 
   template: `
